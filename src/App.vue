@@ -3,9 +3,9 @@ import { ref, onMounted, computed, watch } from "vue";
 
 const todos = ref([]);
 
-const input_content = ref("");
+const inputContent = ref("");
 
-const todos_asc = computed(() =>
+const todosAsc = computed(() =>
   todos.value.sort((a, b) => {
     return a.createdAt - b.createdAt;
   })
@@ -22,12 +22,12 @@ watch(
 );
 
 const addTodo = () => {
-  if (input_content.value.trim() === "") {
+  if (inputContent.value.trim() === "") {
     return;
   }
 
   todos.value.push({
-    content: input_content.value,
+    content: inputContent.value,
     done: false,
     editable: false,
     createdAt: new Date().getTime(),
@@ -54,8 +54,8 @@ onMounted(() => {
           type="text"
           name="content"
           id="content"
-          placeholder="clean kitchen"
-          v-model="input_content"
+          placeholder="example: clean kitchen"
+          v-model="inputContent"
         />
 
         <input type="submit" value="Add todo" />
@@ -66,7 +66,7 @@ onMounted(() => {
       <h3>Task List</h3>
       <div class="list" id="todo-list">
         <div
-          v-for="todo in todos_asc"
+          v-for="todo in todosAsc"
           :class="`todo-item ${todo.done && 'done'}`"
         >
           <label>
